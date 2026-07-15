@@ -3,11 +3,11 @@ export type Locale = "he" | "en";
 export type SiteContent = {
   localeName: string;
   nav: { overview: string; organizers: string; earlyAccess: string };
-  common: { home: string; learnMore: string; temporary: string };
+  common: { home: string; earlyAccess: string; appLink: string; support: string; application: string; platform: string; faq: string; optional: string };
   home: {
     hero: { eyebrow: string; lines: string[]; body: string; primary: string; secondary: string };
     pillarsTitle: string; pillarsIntro: string; pillars: { number: string; title: string; body: string }[];
-    preview: { eyebrow: string; title: string; body: string; slots: string[]; placeholder: string };
+    preview: { eyebrow: string; title: string; body: string; slots: string[]; placeholder: string; comingLabel: string };
     value: { eyebrow: string; title: string; items: string[] };
     organizer: { eyebrow: string; title: string; body: string; items: string[]; note: string; cta: string };
     access: { eyebrow: string; title: string; body: string; user: string; organizer: string };

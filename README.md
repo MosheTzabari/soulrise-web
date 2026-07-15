@@ -5,7 +5,8 @@ The official, Hebrew-first digital home of SoulRise. This repository is a premiu
 ## Stack and local setup
 
 - Next.js 16 App Router, React 19, TypeScript
-- Tailwind CSS 4 plus centralized CSS design tokens and a network-independent bilingual system-font stack
+- Tailwind CSS 4 plus centralized CSS design tokens
+- Heebo, self-hosted at build time through `next/font` with 400–700 weights
 - ESLint; no added runtime dependencies
 
 ```bash
