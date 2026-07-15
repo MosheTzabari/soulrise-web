@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SoulRise website
 
-## Getting Started
+The official, Hebrew-first digital home of SoulRise. This repository is a premium marketing website for users and event organizers; it is intentionally not a web version of the mobile app.
 
-First, run the development server:
+## Stack and local setup
+
+- Next.js 16 App Router, React 19, TypeScript
+- Tailwind CSS 4 plus centralized CSS design tokens and a network-independent bilingual system-font stack
+- ESLint; no added runtime dependencies
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`. Production validation uses `npm run lint` and `npm run build`; run the compiled app with `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`/`, `/organizers`, `/privacy`, `/terms`, `/support`, `/open`, and `/download`.
 
-## Learn More
+## Structure and editing
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app`: routes, metadata, robots, sitemap, and global styles
+- `src/components`: shared layout, UI helpers, and the demo organizer form
+- `src/content`: typed Hebrew and English marketing content
+- `src/lib/site-config.ts`: release state and all external integration placeholders
+- `public/brand`: documented replacement points for approved assets
+- `docs/WEBSITE-DECISIONS.md`: scope and pre-production decisions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Hebrew is the default. The language control writes a same-site preference cookie through a server action, then renders the same components with content from `src/content/he.ts` or `src/content/en.ts`. Edit marketing copy there, not in presentation components.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Release and integrations
 
-## Deploy on Vercel
+`releaseMode` defaults to `early_access`. Store URLs, the general deep link, canonical production domain, support contact, organizer form endpoint, and social links remain null/empty in `src/lib/site-config.ts`. Set only verified production values. The `/open` page never redirects automatically.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The organizer application is a client-side demonstration with accessible validation and a success state. It sends, stores, and logs no personal data. A future Tally, Airtable, email service, or API adapter should be isolated behind a submission function and enabled only after privacy/legal review; `organizerFormEndpoint` is its configuration point.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Required assets
+
+See `public/brand/README.md`. Do not add fictional app screens or unofficial store badges.
+
+## Deploying to Vercel
+
+1. Import this repository into Vercel and keep the Next.js framework preset.
+2. Use `npm run build` as the build command and the default output settings.
+3. Configure the verified custom domain, then set `canonicalDomain` and rebuild.
+4. Add approved brand/OG assets, final legal copy, and an official support contact.
+5. Configure iOS Universal Links and Android App Links before setting `generalDeepLink` or enabling app-opening behavior.
+6. Add verified store URLs only after public availability is confirmed.
+
+Deferred: authentication, checkout, chat, dashboards, app business logic, Firebase, production form submission, automatic app redirects, and unverified store/deep links.

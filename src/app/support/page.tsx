@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import { PageShell } from "@/components/shared/page-shell";
+export const metadata: Metadata = { title: "Support", description: "SoulRise help and support information.", alternates: { canonical: "/support" } };
+export default function Page() { return <PageShell path="/support">{({ copy }) => <><section className="inner-hero"><div className="shell narrow"><p className="eyebrow">Support</p><h1>{copy.support.title}</h1><p className="lead">{copy.support.lead}</p></div></section><section className="section"><div className="shell support-grid">{copy.support.items.map(x => <article className="info-card" key={x.title}><h2>{x.title}</h2><p>{x.body}</p></article>)}</div><div className="shell narrow contact-block"><h2>{copy.support.contactTitle}</h2><p>{copy.support.contactBody}</p></div></section></>}</PageShell>; }

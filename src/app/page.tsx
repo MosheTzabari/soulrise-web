@@ -1,65 +1,18 @@
-import Image from "next/image";
+import Link from "next/link";
+import { PageShell } from "@/components/shared/page-shell";
+import { ArrowIcon } from "@/components/ui/arrow-icon";
+import { JsonLd } from "@/components/ui/json-ld";
+import { siteConfig } from "@/lib/site-config";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  return <PageShell path="/">{({ copy }) => <>
+    <JsonLd data={{ "@context": "https://schema.org", "@graph": [{ "@type": "Organization", name: "SoulRise", url: siteConfig.canonicalDomain ?? undefined }, { "@type": "SoftwareApplication", name: "SoulRise", applicationCategory: "LifestyleApplication", operatingSystem: "iOS, Android", description: copy.home.hero.body, url: siteConfig.canonicalDomain ?? undefined }, { "@type": "FAQPage", mainEntity: copy.home.faqs.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) }] }} />
+    <section className="hero"><div className="hero-glow" /><div className="shell hero-grid"><div className="hero-copy"><p className="eyebrow">{copy.home.hero.eyebrow}</p><h1>{copy.home.hero.lines.map((line) => <span key={line}>{line}</span>)}</h1><p className="lead">{copy.home.hero.body}</p><div className="button-row"><Link className="button" href="/download">{copy.home.hero.primary}<ArrowIcon /></Link><Link className="button button-secondary" href="/organizers">{copy.home.hero.secondary}</Link></div></div><div className="device-stage" aria-label={copy.home.preview.body}><div className="device device-back"><span>{copy.home.preview.slots[2]}</span></div><div className="device"><div className="device-notch" /><div className="device-placeholder"><span className="placeholder-mark">SR</span><strong>{copy.home.preview.placeholder}</strong><small>{copy.home.preview.slots[0]}</small></div></div><div className="floating-chip">Early access · 01</div></div></div></section>
+    <section className="section" id="platform"><div className="shell"><div className="section-heading"><p className="eyebrow">01 · SoulRise</p><h2>{copy.home.pillarsTitle}</h2><p>{copy.home.pillarsIntro}</p></div><div className="pillars">{copy.home.pillars.map((item) => <article className="pillar" key={item.number}><span>{item.number}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div></div></section>
+    <section className="section surface-section"><div className="shell"><div className="section-heading"><p className="eyebrow">{copy.home.preview.eyebrow}</p><h2>{copy.home.preview.title}</h2><p>{copy.home.preview.body}</p></div><div className="preview-track">{copy.home.preview.slots.map((slot, i) => <article className="preview-card" key={slot}><div className="preview-frame"><span>0{i + 1}</span><p>{copy.home.preview.placeholder}</p></div><h3>{slot}</h3></article>)}</div></div></section>
+    <section className="section"><div className="shell split"><div className="section-heading"><p className="eyebrow">{copy.home.value.eyebrow}</p><h2>{copy.home.value.title}</h2></div><ul className="outcome-list">{copy.home.value.items.map((item, i) => <li key={item}><span>0{i + 1}</span>{item}</li>)}</ul></div></section>
+    <section className="section organizer-band"><div className="shell split"><div className="section-heading"><p className="eyebrow">{copy.home.organizer.eyebrow}</p><h2>{copy.home.organizer.title}</h2><p>{copy.home.organizer.body}</p><Link className="button" href="/organizers">{copy.home.organizer.cta}<ArrowIcon /></Link></div><div><ul className="check-list">{copy.home.organizer.items.map((item) => <li key={item}>{item}</li>)}</ul><p className="notice">{copy.home.organizer.note}</p></div></div></section>
+    <section className="section access-section"><div className="shell access-card"><p className="eyebrow">{copy.home.access.eyebrow}</p><h2>{copy.home.access.title}</h2><p>{copy.home.access.body}</p><div className="button-row"><Link className="button" href="/download">{copy.home.access.user}</Link><Link className="button button-secondary" href="/organizers">{copy.home.access.organizer}</Link></div></div></section>
+    <section className="section"><div className="shell faq-layout"><div className="section-heading"><p className="eyebrow">FAQ</p><h2>{copy.home.faqTitle}</h2></div><div className="faq-list">{copy.home.faqs.map((item) => <details key={item.q}><summary>{item.q}<span aria-hidden="true">+</span></summary><p>{item.a}</p></details>)}</div></div></section>
+  </>}</PageShell>;
 }
